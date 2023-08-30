@@ -1,0 +1,33 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '1.1.0'
+}
+
+group = 'me.dessie.spigotobfuscator'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+gradlePlugin {
+
+
+    plugins {
+        obfuscationplugin {
+            id = 'me.dessie.spigot-obfuscator'
+            implementationClass = 'me.dessie.spigotobfuscator.SpigotObfuscator'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
