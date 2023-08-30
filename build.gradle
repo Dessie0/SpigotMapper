@@ -3,7 +3,7 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
 }
 
-group = 'me.dessie.spigotobfuscator'
+group = 'me.dessie.spigotmapper'
 version = '1.0.0'
 
 repositories {
@@ -11,23 +11,14 @@ repositories {
 }
 
 gradlePlugin {
-
+    vcsUrl = "https://github.com/Dessie0/SpigotMapper"
 
     plugins {
-        obfuscationplugin {
-            id = 'me.dessie.spigot-obfuscator'
-            implementationClass = 'me.dessie.spigotobfuscator.SpigotObfuscator'
+        spigotmapper {
+            id = 'me.dessie.spigotmapper'
+            description = "Re-maps Spigot plugins depending on Mojang Mappings for NMS back to their usable Spigot Mapping form"
+            tags.set(['spigot', 'minecraft', 'remap', 'mappings'])
+            implementationClass = 'me.dessie.spigotmapper.SpigotMapper'
         }
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        mavenLocal()
     }
 }

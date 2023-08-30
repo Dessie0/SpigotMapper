@@ -1,48 +1,46 @@
-package me.dessie.spigotobfuscator;
+package me.dessie.spigotmapper;
 
 import org.gradle.api.Project;
+import org.gradle.api.tasks.Input;
 
-public class ObfuscationExtension {
+public class MapperExtension {
 
-    private final Project project;
-
+    @Input
     private String specialSourceVersion = "1.11.0";
 
     /**
      * Defines which version of Minecraft you're building against.
      */
+    @Input
     private String minecraftVersion = "1.20.1-R0.1-SNAPSHOT";
 
     /**
      * Changes the output name for the JAR with obfuscated mappings.
      * You generally will probably have no use for this JAR.
      */
+    @Input
     private String obfuscatedMappingsOutput;
 
     /**
      * Changes the output name for the JAR with Spigot Mappings.
      * Remember, this version is the one that should be placed in your server's plugins folder.
      */
+    @Input
     private String spigotMappingsOutput;
 
     /**
      * Uses a semicolon (;) instead of a colon (:) to separate classpath arguments when using the java command.
      * Linux machines will use a colon, so set this to false if you're getting errors building on a Linux machine.
      */
+    @Input
     private boolean useWindowsSeparator = true;
-
-    /**
-     * Determines if the {@link ObfuscateTask} is automatically run after the 'jar' task.
-     */
-    private boolean finalizedByJar = true;
 
     private String localMinecraftRepo = "/.m2/repository/org/spigotmc/minecraft-server/";
     private String localSpigotRepo = "/.m2/repository/org/spigotmc/spigot/";
 
-    public ObfuscationExtension(Project project) {
-        this.project = project;
-        this.obfuscatedMappingsOutput = project.getName() + "-obf-mappings-" + project.getVersion();
-        this.spigotMappingsOutput = project.getName() + "-spigot-mappings-" + project.getVersion();
+    public MapperExtension(Project project) {
+        this.obfuscatedMappingsOutput = project.getName() + "-" + project.getVersion() + "-obf";
+        this.spigotMappingsOutput = project.getName() + "-" + project.getVersion() + "-remapped";
     }
 
     public String getSpecialSourceVersion() {
@@ -99,13 +97,5 @@ public class ObfuscationExtension {
 
     public void setLocalSpigotRepo(String localSpigotRepo) {
         this.localSpigotRepo = localSpigotRepo;
-    }
-
-    public boolean isFinalizedByJar() {
-        return finalizedByJar;
-    }
-
-    public void setFinalizedByJar(boolean finalizedByJar) {
-        this.finalizedByJar = finalizedByJar;
     }
 }
